@@ -1,14 +1,47 @@
 #include <iostream>
 #include <fstream>
+#include "Heap.h"
 
 using namespace std;
 
-void strToLower(char* a){ //converts words to lower
+void toLower(char* a){ //converts words to lower
   while(*a){
     *a = tolower(*a);
     a++;
   }
 }
+void configureInput(ifstream &stream, bool &isFile){
+
+  char input[128];
+  isFile = false;
+
+  cout << "Read from File or Input text?" << endl;
+  cin.getline(input,128);
+  toLower(input);
+
+  if(input[0] == 'f'){
+    cout << "What file?" << endl;
+    cin.getline(input,128);
+    stream.open(input);
+    if(stream.is_open()){
+      isFile = true;
+    }
+    else{
+      cout << "Could not open file" << endl;
+      cout << "Enter by command line" << endl;
+    }
+  }
+  else{
+    cout << "Enter by command line" << endl;
+  }
+}
+void addNumbers(istream &from, Heap* heap){
+ int  
+}
+void deleteNumbers(istream &from, Heap* heap){
+
+}
+
 
 int main(){
   Heap heap;
@@ -19,34 +52,37 @@ int main(){
   while(running){
    
     cin.getline(input, 128);
-    tolower(input);
-
-    if(input[i] == 'n' {
+    toLower(input);
+    
+    if(input[0] == 'a') {
       ifstream stream;
       bool isFile;
       configureInput(stream, isFile);
-      
+      addNumbers(isFile ? stream : cin, &heap);      
       if(isFile) stream.close();
-
-
-    } else if(strcmp(inputBuffer, "r") == 0 ||
-	      strcmp(inputBuffer, "remove") == 0){
-      std::ifstream stream;
+      
+      
+    }
+    else if(input[0] == 'r' ||
+	    input[0] == 'd'){
+      ifstream stream;
       bool isFile;
       configureInput(stream, isFile);
-      removeNumbers(isFile ? stream : std::cin, &heap);
+      deleteNumbers(isFile ? stream : cin, &heap);
+      
+      
       if(isFile) stream.close();
-      } else if(strcmp(inputBuffer, "p") == 0 ||
-	      strcmp(inputBuffer, "print") == 0){
-	heap.print();
-      } else if(strcmp(inputBuffer, "q") == 0 ||
-	      strcmp(inputBuffer, "quit") == 0){
-	running = false;
-      }else{
-	cout << "I don't understand" << endl;
-	cout << "The possible commands are:\nAdd\nDelete\nPrint\nQuit" << endl;
-      }
-  
-
+    } 
+    else if(input[0] == 'p'){
+      heap.print();
+    } 
+    else if(input[0] == 'q'){
+      running = false;
+    }
+    else{
+      cout << "I don't understand" << endl;
+      cout << "The possible commands are:\nAdd\nDelete\nPrint\nQuit" << endl;
+    }
+  }
 
 }
