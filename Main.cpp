@@ -43,7 +43,7 @@ void addNumbers(istream &from, Heap* heap){
     if(isdigit(from.peek())){
       from >> newInput;
       heap->add(newInput);
-    }
+     }
     else{
       from.ignore();
     }
@@ -68,12 +68,12 @@ int main(){
       configureInput(stream, isFile);
       addNumbers(isFile ? stream : cin, &heap);      
       if(isFile) stream.close();
-      
+      cin.ignore();
       
     }
     else if(input[0] == 'o'){
       while(heap.getCount() > 0){
-	cout << heap.pop() << " ";
+        cout << heap.pop() << " ";
        }
       cout << endl;
     } 

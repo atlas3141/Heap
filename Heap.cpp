@@ -11,18 +11,32 @@ int rightChild(int i){
   return 2*i+2;
 }
 int parent(int i){
-  return (i+1)/2;
+  return (i-1)/2;
 }
 void Heap::bubbleDown(int i){
+  int swapIndex = -1;
+  if (leftChild(i) <= count-1 &&
+      rightChild(i) <= count-1){
 
+    swapIndex = (data[rightChild(i)] > data[leftChild(i)]) ? rightChild(i) : leftChild(i);
+  }
+  else if(leftChild(i) <= count-1){
+    swapIndex = leftChild(i);
+  }
+  if(data[swapIndex] > data[i] && i != -1){
+    int temp = data[i];
+    data[i] = data[swapIndex];
+    data[swapIndex] = temp;
+    bubbleDown(swapIndex);
+  }
 }
 void Heap::bubbleUp(int i){
   if(i != 0){
-    if(data[i] > parent(i)){
+    if(data[i] > data[parent(i)]){
       int temp = data[i];
       data[i] = data[parent(i)];
-    data[parent(i)] = temp;
-    bubbleUp(parent(i));
+      data[parent(i)] = temp;
+      bubbleUp(parent(i));
     }
   }
 }
@@ -41,13 +55,17 @@ void Heap::print(int i, int indent){
   cout << endl;
 }
 void Heap::add(int newInt){
-  cout << newInt << endl;
+
   data[count] = newInt;
   bubbleUp(count);
   count++;
 }
 int Heap::pop(){
-  
+  int toReturn = data[0];
+  data[0] = data[count-1];
+  bubbleDown(0);
+  count--;
+  return toReturn;
 }
 int Heap::getCount(){
   return count;
