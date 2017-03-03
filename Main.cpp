@@ -36,10 +36,18 @@ void configureInput(ifstream &stream, bool &isFile){
   }
 }
 void addNumbers(istream &from, Heap* heap){
- int  
-}
-void deleteNumbers(istream &from, Heap* heap){
-
+  int newInput;
+  from >> newInput;
+  heap->add(newInput);
+  while(from.peek() != '\n' && !from.eof()){
+    if(isdigit(from.peek())){
+      from >> newInput;
+      heap->add(newInput);
+    }
+    else{
+      from.ignore();
+    }
+  }
 }
 
 
@@ -63,17 +71,13 @@ int main(){
       
       
     }
-    else if(input[0] == 'r' ||
-	    input[0] == 'd'){
-      ifstream stream;
-      bool isFile;
-      configureInput(stream, isFile);
-      deleteNumbers(isFile ? stream : cin, &heap);
-      
-      
-      if(isFile) stream.close();
+    else if(input[0] == 'o'){
+      while(heap.getCount() > 0){
+	cout << heap.pop() << " ";
+       }
+      cout << endl;
     } 
-    else if(input[0] == 'p'){
+    else if(input[0] == 't'){
       heap.print();
     } 
     else if(input[0] == 'q'){
@@ -84,5 +88,4 @@ int main(){
       cout << "The possible commands are:\nAdd\nDelete\nPrint\nQuit" << endl;
     }
   }
-
 }
