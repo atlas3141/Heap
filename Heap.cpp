@@ -4,16 +4,16 @@
 
 using namespace std;
 
-int leftChild(int i){
+int leftChild(int i){ //returns the leftChild
   return 2*i+1;
 }
-int rightChild(int i){
+int rightChild(int i){ //returns the rightChild
   return 2*i+2;
 }
-int parent(int i){
+int parent(int i){//returns the parent
   return (i-1)/2;
 }
-void Heap::bubbleDown(int i){
+void Heap::bubbleDown(int i){ //puts a number in its place by moving it down
   int swapIndex = -1;
   if (leftChild(i) <= count-1 &&
       rightChild(i) <= count-1){
@@ -30,7 +30,7 @@ void Heap::bubbleDown(int i){
     bubbleDown(swapIndex);
   }
 }
-void Heap::bubbleUp(int i){
+void Heap::bubbleUp(int i){ //puts a number in its place by moving it up
   if(i != 0){
     if(data[i] > data[parent(i)]){
       int temp = data[i];
@@ -47,20 +47,26 @@ Heap::Heap(){
 
 }
 Heap::~Heap(){
+  delete data;
 }
 void Heap::print(int i, int indent){
-  for(int j = 0; j < count; j++){
-    cout << data[j] << " ";
+
+  if (i < count){
+    print(leftChild(i),indent+1);
+    for(int j = 0; j <= indent; j++){
+      cout << "   ";
+    }
+    cout << data[i] << endl;
+    print(rightChild(i),indent+1);
   }
-  cout << endl;
 }
-void Heap::add(int newInt){
+  void Heap::add(int newInt){
 
   data[count] = newInt;
   bubbleUp(count);
   count++;
 }
-int Heap::pop(){
+int Heap::pop(){ //pops off the largest nu mber and resorts
   int toReturn = data[0];
   data[0] = data[count-1];
   bubbleDown(0);

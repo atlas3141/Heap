@@ -1,3 +1,6 @@
+//Heap class by josh howell
+
+
 class Heap{
  private:
   int* data;
@@ -10,8 +13,8 @@ class Heap{
   ~Heap();
   void print(int i=0, int indent=0);
   void add(int newInt);
-  int pop();
-  int getCount();
+  int pop(); // returns the largest value
+  int getCount(); //returns how many ints are in the array
 };
   
   

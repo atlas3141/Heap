@@ -1,16 +1,23 @@
+//Heap Josh Howell Mar 2017
+//Simple Heap program that takes in input from a file or by console
+//Then can print the tree and output
+
+
 #include <iostream>
 #include <fstream>
 #include "Heap.h"
 
 using namespace std;
 
-void toLower(char* a){ //converts words to lower
+void toLower(char* a){ //converts words to lower case
   while(*a){
     *a = tolower(*a);
     a++;
   }
 }
-void configureInput(ifstream &stream, bool &isFile){
+void configureInput(ifstream &stream, bool &isFile){ 
+  //Asks weather to take in input from text or from file
+  //outputs through ifstream parameter
 
   char input[128];
   isFile = false;
@@ -36,6 +43,7 @@ void configureInput(ifstream &stream, bool &isFile){
   }
 }
 void addNumbers(istream &from, Heap* heap){
+  //goes through a stream and adds them to the heap
   int newInput;
   from >> newInput;
   heap->add(newInput);
@@ -52,6 +60,7 @@ void addNumbers(istream &from, Heap* heap){
 
 
 int main(){
+  //main program loop
   Heap heap;
   char input[128];
   bool running = true;
@@ -85,7 +94,7 @@ int main(){
     }
     else{
       cout << "I don't understand" << endl;
-      cout << "The possible commands are:\nAdd\nDelete\nPrint\nQuit" << endl;
+      cout << "The possible commands are:\nAdd\nOutput\nTree\nQuit" << endl;
     }
   }
 }
